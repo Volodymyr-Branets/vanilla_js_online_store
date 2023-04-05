@@ -3,14 +3,15 @@ class ProductList {
   constructor() {
     this.container = document.querySelector(".products-container") || null;
     this.recommended = document.querySelector(".products-recommended") || null;
-    this.productsService = new ProductsService();
+    this.productsService = new DataService("api/products.json");
     this.renderProducts();
   }
 
   // Render products
   async renderProducts() {
     let productListDomString = "";
-    const products = await this.productsService.getProducts();
+    const products = await this.productsService.getData();
+    console.log("Products is ", products);
     if (this.container !== null) {
       products.forEach((product) => {
         productListDomString += this.createProductDomString(product);
@@ -68,7 +69,7 @@ class ProductList {
   async showProductInfo(event) {
     const id = event.target.dataset.id;
     const modal = document.querySelector("#modal-section");
-    const product = await this.productsService.getProductById(id);
+    const product = await this.productsService.getDataItemById(id);
 
     modal.innerHTML = `
         <div class="modal-header">

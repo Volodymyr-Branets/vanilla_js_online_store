@@ -2,7 +2,7 @@ class Cart {
   constructor() {
     if (!Cart._instance) Cart._instance = this;
     this.container = document.querySelector(".cart-container");
-    this.productsService = new ProductsService();
+    this.productsService = new DataService("api/products.json");
     this.updateCart();
     this.updateBadge();
     this.renderCart();
@@ -34,7 +34,7 @@ class Cart {
     // Render product list in cart
     this.updateCart();
     for (const id in this.cart) {
-      const product = await this.productsService.getProductById(id);
+      const product = await this.productsService.getDataItemById(id);
       cartDomString += this.createCartProductDomString(product);
       total += product.price * this.cart[id];
     }
@@ -138,7 +138,7 @@ class Cart {
     let listNumber = 1;
     let totalAmount = 0;
     for (const id in this.cart) {
-      const product = await this.productsService.getProductById(id);
+      const product = await this.productsService.getDataItemById(id);
       orderList += `${listNumber}. ${product.title} ($${
         product.price
       }/piece) - ${this.cart[id]} pieces - $${
