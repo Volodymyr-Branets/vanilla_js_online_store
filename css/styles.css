@@ -1,0 +1,33 @@
+/* Image style in article card */
+.article-img {
+    width:auto;
+    height: 250px;
+    object-fit: cover;
+}
+/* Image style in Carousel on product page */
+.carousel-img img{
+    width: 100%;
+    object-fit: cover;
+    max-height: 500px;
+}
+@media (max-width: 992px) {
+    .carousel-img img {
+            width: 100%;
+            object-fit: cover;
+            max-height: 350px;
+        }
+}
+@media (max-width: 768px) {
+    .carousel-img img {
+        width: 100%;
+        object-fit: cover;
+        max-height: 280px;
+    }
+}
+@media (max-width: 576px) {
+    .carousel-img img {
+        width: 100%;
+        object-fit: cover;
+        max-height: 200px;
+    }
+}
