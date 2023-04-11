@@ -44,7 +44,7 @@ The shopping cart displays the list of products that the user has added to their
 
 The checkout form collects the user's contacts such as name, phone, and email. Once the user submits the form, they receive a confirmation email. The admin also receive the email with order information for further processing. Further confirmation of the order by the customer's phone is assumed.
 
-This functionality uses the service `formspree.io`
+This functionality uses the service [formspree.io](https://formspree.io).
 
 ## Technologies Used
 
@@ -60,16 +60,16 @@ To run this project on your local machine, follow these steps:
 1. Clone the repository: `git clone https://github.com/Volodymyr-Branets/vanilla_js_online_store.git`
 2. Navigate to the project directory: `cd vanilla_js_online_store`
 3. Open `index.html` in your browser.
+4. In `cart.js` change value of `formspreeUrl` constant to your url address you can get at [formspree.io](https://formspree.io).
 
 ## Usage
 
 To use the online store, you can:
 
 1. Change list of products or articles (blog posts) in `api` folder.
-2. Change in `product-list.js` or `article-list.js` the parameter (url) when create new DataService for using your own server (back end).
-3. Make some visual changes using `Bootstrap`.
-4. Add your own pages.
-5. Change data in `order` method at `cart.js` to your onw.
+2. Change parameter (url) when create new DataService in `product-list.js` or `article-list.js` for using your own list of data downloding from your server (back end).
+3. Add your own pages.
+4. Make some visual changes using `Bootstrap`.
 
 ## Contributing
 
