@@ -44,7 +44,7 @@ The shopping cart displays the list of products that the user has added to their
 
 The checkout form collects the user's contacts such as name, phone, and email. Once the user submits the form, they receive a confirmation email. The admin also receive the email with order information for further processing. Further confirmation of the order by the customer's phone is assumed.
 
-This functionality uses the service ...
+This functionality uses the service `formspree.io`
 
 ## Technologies Used
 

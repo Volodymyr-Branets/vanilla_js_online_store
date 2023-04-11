@@ -1,7 +1,7 @@
 class Cart {
   constructor() {
     if (!Cart._instance) Cart._instance = this;
-    this.container = document.querySelector(".cart-container");
+    this.container = document.querySelector("#modal-cart");
     this.productsService = new DataService("api/products.json");
     this.updateCart();
     this.updateBadge();
@@ -15,9 +15,12 @@ class Cart {
     document
       .querySelector(".cart")
       .addEventListener("click", this.renderCart.bind(this));
-    document
-      .querySelector(".order")
-      .addEventListener("click", this.order.bind(this));
+
+    const orderButton = this.container.querySelector(".order");
+    if (!orderButton._listener) {
+      orderButton._listener = this.order.bind(this);
+      orderButton.addEventListener("click", orderButton._listener);
+    }
   }
 
   // Render cart
@@ -45,7 +48,7 @@ class Cart {
         <div class="col-3"><strong>$${total.toFixed(2)}</strong></div>
     </div>`;
     // Insert cart to html
-    this.container.innerHTML = cartDomString;
+    this.container.querySelector(".cart-container").innerHTML = cartDomString;
     // Add listeners for change products quantity buttons
     this.container
       .querySelectorAll(".plus")
@@ -84,7 +87,6 @@ class Cart {
   changeQuantity(ev, operation) {
     const id = ev.target.dataset.id;
     operation.call(this, id);
-    this.renderCart();
   }
 
   // Delete product from cart
@@ -96,6 +98,7 @@ class Cart {
     }
     this.saveCart();
     this.updateBadge();
+    this.renderCart();
   }
 
   // Add product to cart
@@ -107,6 +110,7 @@ class Cart {
     this.cart[id] = (this.cart[id] || 0) + 1;
     this.saveCart();
     this.updateBadge();
+    this.renderCart();
   }
 
   // Save cart to local storage
@@ -133,6 +137,7 @@ class Cart {
       window.showAlert("Please choose products to order", false);
       return;
     }
+    this.updateCart();
     // Render order message
     let orderList = "";
     let listNumber = 1;
@@ -147,6 +152,7 @@ class Cart {
       listNumber++;
       totalAmount += product.price * this.cart[id];
     }
+
     orderList += `Total amount: $${totalAmount}`;
     const form = document.querySelector(".form-contacts");
     if (form.checkValidity()) {
@@ -176,14 +182,14 @@ class Cart {
             throw new Error("Cannot send form");
           }
         })
-        .then((responseText) => {
+        .then(() => {
           form.reset();
           this.cart = {};
           this.saveCart();
           this.updateBadge();
           this.renderCart();
           window.showAlert("Thanks for your order! We will call you soon.");
-          document.querySelector("#modal-cart .close-btn").click();
+          this.container.querySelector(".close-btn").click();
         })
         .catch((error) =>
           window.showAlert("There is an error: " + error, false)
