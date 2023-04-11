@@ -1,3 +1,5 @@
+const formspreeUrl = "HERE MUST BE YOUR formspree.io URL";
+
 class Cart {
   constructor() {
     if (!Cart._instance) Cart._instance = this;
@@ -168,7 +170,7 @@ class Cart {
         form.querySelector("input[name=email]").value
       );
       event.preventDefault();
-      fetch("https://formspree.io/f/xdojnkvy", {
+      fetch(formspreeUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
